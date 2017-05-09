@@ -2,17 +2,37 @@
 
 ## The challenge
 
-We have a system that delivers advertising materials to broadcasters. 
+We have a system that delivers advertising materials to broadcasters.
 
 Advertising Material is uniquely identified by a 'Clock' number e.g.
 
 * `WNP/SWCL001/010`
 * `ZDW/EOWW005/010`
 
-Our sales team have some new promotions they want to offer so 
+Our sales team have some new promotions they want to offer so
 we need to introduce a mechanism for applying Discounts to orders.
 
 Promotions like this can and will change over time so we need the solution to be flexible.
+
+## Specifications
+
+
+### User Stories
+
+```
+As an advertising agency,
+So that I can receive a discount of 10% for sending  advertising materials to broadcasters,
+I should spend over 30$ on my order
+
+```
+
+```
+As an advertising agency,
+So that the price of the express delivery goes down to 15$ for my order,
+I should send 2 or more materials in that order via express delivery
+
+```
+
 
 ### Broadcasters
 

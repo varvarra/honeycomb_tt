@@ -40,18 +40,27 @@ describe Order do
     end
 
     describe "#total_cost" do
-
-      it 'returns the total cost of all items' do
-        subject.add broadcaster_1, standard_delivery
+      before do
         subject.add broadcaster_2, express_delivery
-        expect(subject.total_cost).to eq(30)
+      end
+
+
+      it "applies certain discount if the order is over certain amount" do
+        subject.add(broadcaster_3, standard_delivery)
+        subject.add broadcaster_1, standard_delivery
+        expect(subject.total_cost).to eq(36.0)
       end
 
       it "applies certain discount if the order is over certain amount" do
+        subject.add broadcaster_1, express_delivery
+        expect(subject.total_cost).to eq(30.0)
+      end
+
+      it 'returns the total cost of all items' do
         subject.add broadcaster_1, standard_delivery
-        subject.add broadcaster_2, express_delivery
-        subject.add(broadcaster_3, standard_delivery)
-        expect(subject.total_cost).to eq(36)
+        subject.add broadcaster_3, standard_delivery
+        subject.add broadcaster_1, standard_delivery
+        expect(subject.total_cost).to eq(45.0)
       end
 
     end

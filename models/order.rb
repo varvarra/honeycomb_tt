@@ -7,20 +7,25 @@ class Order
 
   DISCOUNT = 10
   MIN_AMOUNT = 30
+  NEW_EXP_PRICE = 15
+  EXP_MIN = 2
 
-  attr_accessor :material, :items,  :total
+  attr_accessor :material, :items,  :total, :exp_deliveries
 
   def initialize(material)
     self.material = material
     self.items = []
     self.total = 0
+    self.exp_deliveries = []
   end
 
   def add(broadcaster, delivery)
     items << [broadcaster, delivery]
+    exp_deliveries << delivery if delivery.name == :express
   end
 
   def total_cost
+    change_exp_prices if exp_deliveries.count >= EXP_MIN
     total = items.inject(0) { |memo, (_, delivery)| memo += delivery.price }
     over_thirty?(total)
   end
@@ -51,6 +56,10 @@ class Order
     @output_separator ||= COLUMNS.map { |_, width| '-' * width }.join(' | ')
   end
 
+  def change_exp_prices
+    exp_deliveries.map{|delivery| delivery.price = NEW_EXP_PRICE.to_f }
+  end
+
   def over_thirty?(total)
     if total > MIN_AMOUNT.to_f
       total * (1-(DISCOUNT.to_f/100))
@@ -58,4 +67,5 @@ class Order
       total
     end
   end
+
 end

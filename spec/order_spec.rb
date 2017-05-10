@@ -25,26 +25,30 @@ describe Order do
   end
 
   context 'with items' do
-    it 'returns the total cost of all items' do
-      broadcaster_1 = Broadcaster.new(1, 'Viacom')
-      broadcaster_2 = Broadcaster.new(2, 'Disney')
 
-      subject.add broadcaster_1, standard_delivery
-      subject.add broadcaster_2, express_delivery
+    broadcaster_1 = Broadcaster.new(1, 'Viacom')
+    broadcaster_2 = Broadcaster.new(2, 'Disney')
 
-      expect(subject.total_cost).to eq(30)
-    end
-  end
+    describe "#add" do
 
-  describe "#add" do
-    it { is_expected.to respond_to(:add).with(2).arguments }
+      it { is_expected.to respond_to(:add).with(2).arguments }
 
-    it "changes the number of elements in the array of items" do
-      subject.add(broadcaster_1, standard_delivery)
-      expect(subject.items).to include [broadcaster_1, standard_delivery]
+      it "changes the number of elements in the array of items" do
+        subject.add(broadcaster_1, standard_delivery)
+        expect(subject.items).to include [broadcaster_1, standard_delivery]
+      end
     end
 
-  end
+    describe "total_cost" do
 
+      it 'returns the total cost of all items' do
+        subject.add broadcaster_1, standard_delivery
+        subject.add broadcaster_2, express_delivery
+        expect(subject.total_cost).to eq(30)
+      end
+    end
+
+    
+  end
 
 end

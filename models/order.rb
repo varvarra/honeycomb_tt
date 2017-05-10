@@ -5,11 +5,15 @@ class Order
     price: 8
   }.freeze
 
-  attr_accessor :material, :items
+  DISCOUNT = 10
+  MIN_AMOUNT = 30
+
+  attr_accessor :material, :items,  :total
 
   def initialize(material)
     self.material = material
     self.items = []
+    self.total = 0
   end
 
   def add(broadcaster, delivery)
@@ -17,7 +21,8 @@ class Order
   end
 
   def total_cost
-    items.inject(0) { |memo, (_, delivery)| memo += delivery.price }
+    total = items.inject(0) { |memo, (_, delivery)| memo += delivery.price }
+    over_thirty?(total)
   end
 
   def output
@@ -44,5 +49,13 @@ class Order
 
   def output_separator
     @output_separator ||= COLUMNS.map { |_, width| '-' * width }.join(' | ')
+  end
+
+  def over_thirty?(total)
+    if total > MIN_AMOUNT.to_f
+      total * (1-(DISCOUNT.to_f/100))
+    else
+      total
+    end
   end
 end

@@ -4,6 +4,7 @@ require './models/broadcaster'
 require './models/delivery'
 require './models/material'
 require './models/order'
+require './models/discount'
 
 standard_delivery = Delivery.new(:standard, 10.0)
 express_delivery = Delivery.new(:express, 20.0)
@@ -16,11 +17,14 @@ broadcaster_5 = Broadcaster.new(5, 'Channel 4')
 broadcaster_6 = Broadcaster.new(6, 'Bike Channel')
 broadcaster_7 = Broadcaster.new(7, 'Horse and Country')
 
+
 material_1 = Material.new('WNP/SWCL001/010')
 material_2 = Material.new('ZDW/EOWW005/010')
+discount_1 = Discount.new
 
-order_1 = Order.new(material_1)
-order_2 = Order.new(material_2)
+order_1 = Order.new(material_1, discount_1)
+order_2 = Order.new(material_2, discount_1)
+
 
 
 #  send `WNP/SWCL001/010` to Disney, Discovery, Viacom via Standard Delivery and Horse and Country via Express Delivery

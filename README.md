@@ -72,3 +72,7 @@ Based on the both Discounts applied, the following examples should be valid:
 
 * send `ZDW/EOWW005/010` to Disney, Discovery, Viacom via Express Delivery
      based on the defined Discounts the total should be $40.50
+
+     def no_discount_total(items)
+       @total = items.inject(0) { |memo, (_, delivery)| memo += delivery.price }
+     end
